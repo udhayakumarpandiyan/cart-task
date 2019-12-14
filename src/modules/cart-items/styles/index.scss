@@ -1,0 +1,181 @@
+@import '../../../styles/vars.scss';
+@import '../../../styles/common.scss';
+
+.module_container {
+    width: 100%;
+    height: 100%;
+    text-align: left;
+    overflow-x: hidden;
+
+    .cart-items {
+        padding: 40px;
+        overflow-x: hidden;
+    }
+
+    .cart-card {
+        border: 1px solid #a1a1a1;
+        margin: 8px 0px;
+        padding: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .item-details {
+            display: flex;
+            align-items: center;
+            width: 100%;
+
+            .item-content {
+                padding-left: 10px;
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                padding-right: 40px;
+
+                @include media-tab {
+                    flex-direction: column;
+                }
+
+                @include media-mobile {
+                    flex-direction: column;
+                }
+
+                .item-left-content {
+                    display: flex;
+                    flex-direction: column;
+
+                    .item-name {
+                        padding-top: 6px;
+                    }
+
+                    .card-content {
+                        display: flex;
+                        align-items: center;
+                        justify-content: flex-start;
+                        padding: 20px 0px;
+
+                        @include media-tab {
+                            padding: 8px 0px;
+                        }
+
+                        @include media-mobile {
+                            padding: 8px 0px;
+                        }
+
+                        .price-after-discount {
+                            font-weight: bold;
+                        }
+
+                        .original-price {
+                            padding: 0px 10px;
+                            font-size: 12px;
+                            text-decoration: line-through;
+                        }
+
+                        .off-label {
+                            padding: 0px 8px;
+                            color: rgb(3, 180, 3);
+                            font-weight: 500;
+                        }
+                    }
+
+                }
+            }
+
+            .item-image {
+                width: 100px;
+                height: 120px;
+                background-size: cover;
+                margin-right: 10px;
+            }
+        }
+
+
+        .cart-controls {
+            display: flex;
+            align-items: center;
+
+            input {
+                width: 36px;
+                height: 26px;
+                margin: 0px 8px;
+                color: #1a1a1a;
+                text-align: center;
+            }
+
+            button {
+                width: 26px;
+                height: 26px;
+                border-radius: 100em;
+                background: none;
+                box-shadow: none;
+                padding: 0px 3px 10px 3px;
+                border: 1px solid #a1a1a1;
+                font-size: 16px;
+                color: #a1a1a1;
+                text-align: center;
+                cursor: pointer;
+                outline: none;
+
+            }
+
+        }
+
+
+        .remove-button {
+            width: 100px;
+            text-align: left;
+            background: none;
+            padding: 10px 0px;
+            color: #1a1a1a;
+            border: none;
+            font-weight: bold;
+            font-size: 16px;
+            text-transform: uppercase;
+            cursor: pointer;
+            outline: none;
+        }
+
+        .remove-button:hover {
+            color: $primaryColor;
+        }
+    }
+
+    .price-details {
+        border: 1px solid #a1a1a1;
+        margin: 8px 0px;
+        padding: 10px 0px;
+
+
+        .title {
+            font-size: 16px;
+            padding: 0px 20px;
+            text-transform: uppercase;
+            font-weight: bold;
+            color: #999999;
+        }
+
+        .details {
+            padding: 16px 20px;
+            color: #1a1a1a;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .details-with-border {
+            @extend .details;
+            margin-top: 16px;
+            border-top: 1px solid #dadada;
+        }
+
+        .total-payable {
+            display: flex;
+            justify-content: space-between;
+            border-top: 1px solid #a1a1a1;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+    }
+
+}
