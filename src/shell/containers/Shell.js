@@ -17,13 +17,16 @@ class Shell extends Component {
     }
     componentDidMount() {
         unlisten = history.listen((location, action) => {
-            this.setState({ currentPage: location.pathname });
+            this.setState({ currentPage: location.hash });
+
         });
+
     }
+
     render() {
         return (<div className="shell">
             <Header cartItems={this.props.cartItems}
-                showCart={this.state.currentPage === RoutePath.SHOPPING_LIST} />
+                showCart={this.state.currentPage.match(RoutePath.SHOPPING_LIST)} />
             <div className="main_content">
                 <MainContent />
             </div>

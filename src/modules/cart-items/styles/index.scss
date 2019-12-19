@@ -8,24 +8,24 @@
     overflow-x: hidden;
 
     .back-button {
-        display: none;
-        margin: 0px 30px;
+       // display: none;
+        margin: 10px 30px 0px 30px;
         background-color: #666666;;
         border: none;
         color: #ffffff;
         padding: 6px 20px;
-        border-radius: 10px;
+        border-radius: 4px;
         cursor: pointer;
 
 
-        @include media-tab {
-            display: inline;
-        }
+        // @include media-tab {
+        //     display: inline;
+        // }
 
-        @include media-mobile {
-            display: inline;
+        // @include media-mobile {
+        //     display: inline;
            
-        }
+        // }
 
     }
 

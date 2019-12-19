@@ -1,5 +1,5 @@
 import React from 'react';
-import { HashRouter, Switch, Route, Redirect } from 'react-router-dom';
+import { HashRouter, Route, Redirect } from 'react-router-dom';
 
 import RoutePath from '../../route';
 import ShoppingList from '../../modules/shopping-list/containers/ShoppingList';
@@ -9,12 +9,11 @@ const MainContent = (props) => {
 
 
     return (<div className="content">
-
-        <Switch>
+        <HashRouter basename={'/'}>
             <Redirect exact from='/' to={RoutePath.SHOPPING_LIST} />
             <Route path={RoutePath.SHOPPING_LIST} component={ShoppingList} />
             <Route path={RoutePath.CART_ITEMS} component={CartItems} />
-        </Switch>
+        </HashRouter>
 
     </div>)
 }

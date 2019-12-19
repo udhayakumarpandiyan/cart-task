@@ -26,13 +26,13 @@ const Header = (props) => {
                 <button onClick={() => setTextInputVisibility(!showSearchTextInput)}>
                     <FontAwesomeIcon icon={faSearch} color="white" size="1x" />
                 </button>
-                {props.showCart && <button onClick={onCartClick}>
+                <button onClick={onCartClick}>
                     <FontAwesomeIcon icon={faShoppingCart} color="white" />
                     {props.cartItems && props.cartItems.length > 0 &&
                         <div className="cart-info" >{props.cartItems.length}</div>
                     }
                 </button>
-                }
+
 
             </div>
             <AlertModal
