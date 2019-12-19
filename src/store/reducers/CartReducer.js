@@ -21,7 +21,7 @@ export default function cartItems(state = initialState, action) {
         case ADD_ITEM_TO_CART:
             return {
                 ...state,
-                cartItems: [...state.cartItems, action.payload]
+                cartItems: [...state.cartItems, action.payload.item]
             };
         default:
             return {

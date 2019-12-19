@@ -1,6 +1,7 @@
 .alert-custom-modal {
   font-family: inherit;
   width: 80% !important;
+  max-width: 460px;
 }
 
 .alert-custom-modal>.ant-modal-content {

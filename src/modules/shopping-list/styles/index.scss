@@ -5,6 +5,7 @@
     width: 100%;
     height: 100%;
     text-align: left;
+    overflow-y: hidden;
 
     .sidebar-column {
         display: flex;
@@ -20,39 +21,20 @@
         .sidebar {
             height: 100%;
             width: 100%;
+            min-height: calc(100vh);
             padding: 40px 20px;
             border-right: 1px solid #bababa;
 
-            .filter-options {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
+        }
+    }
 
-                .filters {
-                    font-size: 20px;
-                    font-weight: bold;
-                }
+    .list-content {
+        @include media-tab {
+            width: 100%;
+        }
 
-                .slider {
-                    width: 90%;
-                }
-
-                .apply-button {
-                    width: 80px;
-                    height: 32px;
-                    background-color: $primaryColor;
-                    color: $secondaryTextColor;
-                    border: none;
-                    border-radius: 20px;
-                    cursor: pointer;
-                    outline: none;
-                }
-
-                .apply-button:hover {
-                    font-weight: bold;
-                    box-shadow: 0px 6px 6px 0px rgba(0, 0, 0, 0.5);
-                }
-            }
+        @include media-mobile {
+            width: 100%;
         }
     }
 
@@ -93,6 +75,8 @@
         flex-direction: row;
         overflow-x: hidden;
 
+
+
         .options-container {
             display: none;
 
@@ -106,7 +90,7 @@
                 display: flex;
             }
 
-            button {
+            .options-button {
                 background: none;
                 border: none;
                 font-size: 20px;
@@ -127,6 +111,7 @@
                 }
             }
 
+
         }
 
         .shopping-list {
@@ -138,6 +123,17 @@
 
             @include media-mobile {
                 padding: 0px 20px;
+            }
+
+            .no-items {
+                width: 100%;
+                padding: 40px;
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                text-align: right;
+
             }
         }
 
@@ -172,12 +168,30 @@
 
             .original-price {
                 padding: 0px 10px;
+
+                @include media-tab {
+                    padding: 0px 6px;
+                }
+
+                @include media-mobile {
+                    padding: 0px 6px;
+                }
+
                 font-size: 12px;
                 text-decoration: line-through;
             }
 
             .off-label {
                 padding: 0px 8px;
+
+                @include media-tab {
+                    padding: 0px 4px;
+                }
+
+                @include media-mobile {
+                    padding: 0px 4px;
+                }
+
                 color: rgb(3, 180, 3);
                 font-weight: 500;
             }
@@ -198,6 +212,14 @@
             cursor: pointer;
         }
 
+        .add-to-cart-button:disabled {
+            width: 120px;
+            cursor: auto;
+            @extend .add-to-cart-button;
+            opacity: 0.5;
+
+        }
+
         .add-to-cart-button:hover {
             font-weight: bold;
             box-shadow: 0px 6px 6px 0px rgba(0, 0, 0, 0.5);
@@ -206,4 +228,66 @@
 
 
 
+}
+
+.ant-radio-inner::after {
+    border: 2px solid $primaryColor !important;
+    background-color: $primaryColor !important;
+}
+.ant-slider-rail{
+    background-color: #dadada !important;
+}
+.ant-slider-track {
+    background-color: $primaryColor !important;
+}
+
+.ant-slider-handle {
+    width: 18px !important;
+    margin-top: -7px !important;
+    height: 18px !important;
+    border: 2px solid #999999 !important;
+}
+
+.filter-options {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .filters {
+        width: 100%;
+        text-align: left;
+        font-size: 20px;
+        font-weight: bold;
+
+    }
+
+
+    .apply-button {
+        margin-top: 20px;
+        padding: 6px 40px;
+        background-color: $primaryColor;
+        color: $secondaryTextColor;
+        border: none;
+        border-radius: 20px;
+        cursor: pointer;
+        outline: none;
+    }
+
+    .apply-button:hover {
+        font-weight: bold;
+        box-shadow: 0px 6px 6px 0px rgba(0, 0, 0, 0.5);
+    }
+}
+
+.price-range {
+    margin-top: 20px;
+    width: 100%;
+    height: 30px;
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.slider {
+    width: 90%;
 }

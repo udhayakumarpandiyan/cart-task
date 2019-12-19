@@ -1,20 +1,49 @@
 import React, { useState } from 'react';
+import AlertModal from '../../../common/alert-modal/alertModal';
 import '../styles/index.scss';
 
 const Card = (props) => {
     let [cartItemsCount, setCartItemsCount] = useState(1);
-    let item = props.item && props.item.item;
+    let [cartItemsPrice, setCardItemsPrice] = useState(props.item && props.item.price);
+    let [showRemoveDialog, setRemoveDialogVisibility] = useState(false);
+    let item = props.item;
+    let originalPrice = (item.price / (100 - item.discount) * 100).toFixed(0);
+
     const decreaseCartItems = () => {
-        if (cartItemsCount > 0) {
+        if (cartItemsCount > 1) {
             cartItemsCount -= 1;
+            cartItemsPrice += item.price;
             setCartItemsCount(cartItemsCount);
+            setCardItemsPrice(cartItemsPrice);
+            props.setPriceDetails({
+                increase: false,
+                cartItemsPrice: originalPrice,
+                discount: originalPrice - item.price
+            });
         }
     }
     const increaseCartItems = () => {
         if (cartItemsCount < 10) {
             cartItemsCount += 1;
+            cartItemsPrice += item.price;
             setCartItemsCount(cartItemsCount);
+            setCardItemsPrice(cartItemsPrice);
+            props.setPriceDetails({
+                increase: true,
+                cartItemsPrice: originalPrice,
+                discount: originalPrice - item.price
+            });
         }
+    }
+    const onRemoveItemClick = () => {
+        setRemoveDialogVisibility(true);
+    }
+    const onAlertClose = () => {
+        setRemoveDialogVisibility(false);
+    }
+    const onYesClick = () => {
+        props.onRemoveItemClick();
+        setRemoveDialogVisibility(false);
     }
 
     return (
@@ -28,7 +57,7 @@ const Card = (props) => {
                         <div className="card-content">
                             <label className="price-after-discount">&#8377;{item.price}</label>
                             <label className="original-price">
-                                {(item.price / (100 - item.discount) * 100).toFixed(0)}
+                                {originalPrice}
                             </label>
                             <label className="off-label">{`${item.discount} % off`}</label>
                         </div>
@@ -40,12 +69,20 @@ const Card = (props) => {
 
                     </div>
                     <button className="remove-button"
-                        onClick={props.onRemoveItemClick}>
+                        onClick={onRemoveItemClick}>
                         Remove
                     </button>
                 </div>
             </div>
-
+            <AlertModal confirmation
+                title={`Remove Cart Item `}
+                open={showRemoveDialog}
+                content={<div style={{ padding: "10px 0px 30px 0px" }}>
+                    Are you sure want to remove this item from your cart ?
+                </div>}
+                btnTtl="Remove"
+                onYesClick={onYesClick}
+                onClose={onAlertClose} />
 
         </div >
     )

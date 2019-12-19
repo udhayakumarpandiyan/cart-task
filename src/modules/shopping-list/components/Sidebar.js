@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import FilterOptions from './FilterOptions';
 
 const Sidebar = (props) => {
     return (
         <div className="sidebar">
-            <FilterOptions/>
+            <FilterOptions onApplyFilter={props.onApplyFilter} />
         </div >
     )
 }

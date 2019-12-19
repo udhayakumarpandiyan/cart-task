@@ -7,9 +7,55 @@
     text-align: left;
     overflow-x: hidden;
 
+    .back-button {
+        display: none;
+        margin: 0px 30px;
+        background-color: #666666;;
+        border: none;
+        color: #ffffff;
+        padding: 6px 20px;
+        border-radius: 10px;
+        cursor: pointer;
+
+
+        @include media-tab {
+            display: inline;
+        }
+
+        @include media-mobile {
+            display: inline;
+           
+        }
+
+    }
+
     .cart-items {
-        padding: 40px;
+        padding: 40px 30px;
         overflow-x: hidden;
+
+        .no-items {
+            margin-top: 8px;
+            border: 1px solid #a1a1a1;
+            padding: 74px 0px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+
+            button {
+                border: none;
+                background: none;
+                color: $primaryColor;
+                outline: none;
+                cursor: pointer;
+
+            }
+
+            button:hover {
+                text-decoration: underline;
+            }
+        }
     }
 
     .cart-card {

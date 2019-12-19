@@ -1,4 +1,5 @@
 import history from './history';
+
 const SHOPPING_LIST = '/shopping-list';
 const CART_ITEMS = "/cart-items";
 

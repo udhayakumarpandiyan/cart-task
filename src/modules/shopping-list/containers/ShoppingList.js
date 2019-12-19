@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Row, Col, Modal } from 'antd';
+import { Row, Col } from 'antd';
 import Sidebar from '../components/Sidebar';
 import Card from '../components/Card';
 import SortOptions from '../components/SortOptions';
@@ -27,15 +27,40 @@ class ShoppingList extends Component {
             this.props.getShoppingList();
         }
         else {
+            this.filterCartItems(this.props.cartItems);
             this.setState({ shoppingList: this.props.shoppingList });
         }
     }
     componentWillReceiveProps(nextProps) {
-        if (this.props.shoppingList !== nextProps.shoppingList) {
-            this.setState({ shoppingList: nextProps.shoppingList });
+
+        if (nextProps.shoppingList) {
+            this.filterCartItems(this.props.cartItems);
+            if (this.props.shoppingList !== nextProps.shoppingList) {
+                this.setState({ shoppingList: nextProps.shoppingList });
+            }
+        }
+        if (this.props.cartItems !== nextProps.cartItems) {
+            this.filterCartItems(nextProps.cartItems);
         }
 
     }
+    filterCartItems = (cartItems) => {
+        let shoppingList = this.state.shoppingList || this.props.shoppingList;
+        if (shoppingList && cartItems) {
+            cartItems.forEach(item => {
+                let cartItem = item;
+                shoppingList.forEach(listItem => {
+                    if (cartItem.id === listItem.id) {
+                        listItem.isAddedToCart = true;
+                    }
+                })
+
+            })
+
+            this.setState({ shoppingList: shoppingList });
+        }
+    }
+
     // utility to handle the sorting
     getSortedItems = (prop, order) => {
         return (a, b) => {
@@ -50,10 +75,13 @@ class ShoppingList extends Component {
     }
 
     onSortOptionClick = (value) => {
+
         let shoppingList = this.state.shoppingList;
         let sortOrder = value === 2 ? "asec" : "desc";
         let sortBy = value === 3 ? "discount" : "price";
-        shoppingList.sort(this.getSortedItems(sortBy, sortOrder));
+        if (shoppingList) {
+            shoppingList.sort(this.getSortedItems(sortBy, sortOrder));
+        }
         this.setState({
             shoppingList: shoppingList,
             selectedSortOption: this.state.selectedSortOption === value ? -1 : value
@@ -62,27 +90,32 @@ class ShoppingList extends Component {
     addItemtoCart = (item) => {
         this.props.addItemToCart(item);
     }
+    onApplyFilter = (range) => {
+        let shoppingList = this.props.shoppingList.filter((value, index, arr) => value.price >= range[0] && value.price <= range[1])
+        this.setState({ shoppingList: shoppingList });
+    }
 
     render() {
         return (
             <div className="module_container">
                 <Row className="shopping-list-container">
                     <Col span={4} className="sidebar-column">
-                        <Sidebar />
+                        <Sidebar onApplyFilter={this.onApplyFilter} />
                     </Col>
-                    <Col>
+                    <Col className="list-content">
                         <Row>
                             <SortOptions options={sortOptions}
+                                onApplyFilter={this.onApplyFilter}
                                 selectedSortOption={this.state.selectedSortOption}
                                 onSortOptionClick={this.onSortOptionClick} />
                         </Row>
                         <Row gutter={20} className="shopping-list">
-                            {this.state.shoppingList && this.state.shoppingList.map((item, index) => (
-                                <Col style={{ display: 'inline-grid' }}
+                            {this.state.shoppingList && this.state.shoppingList.length > 0 ? this.state.shoppingList.map((item, index) => (
+                                <Col style={{ display: 'inline-grid' }} key={item.id}
                                     xs={12} sm={12} md={6} lg={4} xl={4} xxl={5}>
                                     <Card item={item} onAddToCartClick={this.addItemtoCart} />
                                 </Col>
-                            ))}
+                            )) : <div className="no-items">No results found</div>}
                         </Row>
                     </Col>
                 </Row>

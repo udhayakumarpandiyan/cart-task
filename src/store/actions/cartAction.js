@@ -6,29 +6,15 @@ const onFail = msg => ({
     msg
 });
 
-const ongetCartItemsSuccess = payload => {
+const onGetCartItemsSuccess = payload => {
     return {
         payload,
         type: TYPES.GET_SHOPPING_LIST,
     };
 };
-export const getCartItems = (user) => {
+export const getCartItems = (items) => {
     return (dispatch) => {
-
-        fetch(API.cartItems.getCartItems)
-            .then(
-                function (response) {
-                    if (response.status !== 200) {
-                        return;
-                    }
-                    response.json().then(function (data) {
-                        dispatch(ongetCartItemsSuccess(data));
-                    });
-                }
-            )
-            .catch(function (err) {
-                dispatch(onFail(err));
-            });
+        dispatch(onGetCartItemsSuccess({ items }));
     };
 
 }
@@ -46,7 +32,6 @@ export const addItemToCart = (item) => {
 }
 
 const onRemoveItemSuccess = payload => {
-    console.log("Payload", payload);
     return {
         payload,
         type: TYPES.REMOVE_ITEM_FROM_CART,
@@ -54,6 +39,6 @@ const onRemoveItemSuccess = payload => {
 };
 export const removeItemFromCart = (items) => {
     return (dispatch) => {
-        dispatch(onRemoveItemSuccess({ ...items }));
+        dispatch(onRemoveItemSuccess([...items]));
     };
 }

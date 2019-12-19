@@ -1,16 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import '../styles/index.scss';
 
 const Card = (props) => {
-    // const [selectedIndex, setTab] = useState(0);
-    // const [selectedLanguageIndex, setLanguage] = useState(props.selectedLanguageIndex);
-    // const [collapsed, setCollapsed] = useState(false);
-    // category: "fiction"
-    // discount: 10
-    // id: 9090
-    // img_url: "http://lorempixel.com/500/600/technics/"
-    // name: "Item1"
-    // price: 200
     return (
         <div className="card">
             <img className="item-image"
@@ -25,10 +16,10 @@ const Card = (props) => {
                 </div> : <label className="no-discount">No Discount</label>
                 }
             </div>
-            <button className="add-to-cart-button"
+            <button className="add-to-cart-button" disabled={props.item.isAddedToCart}
                 onClick={() => props.onAddToCartClick(props.item)}>
-                Add to Cart
-                </button>
+                {props.item.isAddedToCart ? "Added to Cart" : "Add to Cart"}
+            </button>
         </div >
     )
 }
